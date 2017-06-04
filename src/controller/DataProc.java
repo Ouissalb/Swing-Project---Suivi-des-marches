@@ -54,4 +54,22 @@ public class DataProc
 			 System.out.println("some issue happened");
 	}
 	
+	public static void showTheNextWindow()
+	{
+		if(DatabaseQueries.directorLoggedIn)
+		{
+			DirectorView1.directorView1.setVisible(true);
+		}
+		else if (DatabaseQueries.employeLoggedIn)
+		{
+			EmployeeView1.employeeView1.setVisible(true);
+		}
+		else if (DatabaseQueries.chefProjetLoggedIn)
+		{
+			//ChefProjetView1.chefProjetView1.setVisible(true);
+		}
+		
+	}
+	
+	
 }

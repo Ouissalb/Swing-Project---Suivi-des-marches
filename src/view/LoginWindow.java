@@ -23,13 +23,14 @@ public class LoginWindow {
 	private JPasswordField passwordField;
 	private String password = "";
 	private String comboBoxContent = "";
+	private static JFrameWithBackgroundImage frameWithBackgroundImage;
 	private DataProc dataProc = new DataProc();
 	public LoginWindow() {
 		initialize();
 	}
-	public static JFrame getJFrameForLoginWindow()
+	public static JFrameWithBackgroundImage getJFrameForLoginWindow()
 	{
-		return  frameForLoginWindow;
+		return  frameWithBackgroundImage;
 	}
 
 
@@ -39,7 +40,7 @@ public class LoginWindow {
 		String directeurCB = "Directeur";
 		String chefProjetCB = "Chef de projet";
 		String[] listeDesSalaries = { employeCB, directeurCB, chefProjetCB };
-		JFrameWithBackgroundImage frameWithBackgroundImage = new JFrameWithBackgroundImage();
+		frameWithBackgroundImage = new JFrameWithBackgroundImage("image.png");
 		frameWithBackgroundImage.getContentPane().setLayout(null);
 		
 		JButton btnLogin = new JButton("Login");
@@ -117,7 +118,8 @@ public class LoginWindow {
 				}
 				if (DataProc.loggedInOrNot)
 				{
-					LoginWindow.getJFrameForLoginWindow().setVisible(false);
+					frameWithBackgroundImage.setVisible(false);
+					DataProc.showTheNextWindow();
 				}
 			}
 			

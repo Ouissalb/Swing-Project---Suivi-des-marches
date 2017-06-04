@@ -3,24 +3,26 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JTextPane;
+import java.awt.BorderLayout;
+import javax.swing.JSplitPane;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.Panel;
 
 public class DirectorView1 {
+	public static JFrameWithBackgroundImage directorView1;
 
-
-	/**
-	 * Create the application.
-	 */
 	public DirectorView1() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
-		JFrameWithBackgroundImage directorView1 = new JFrameWithBackgroundImage();
-		directorView1.setBounds(100, 100, 700, 300);
+		directorView1 = new JFrameWithBackgroundImage("green2.jpg");
+		directorView1.setBounds(0, 0, 400, 400);
+		//to make the window appear in the center
+		directorView1.setLocationRelativeTo(null);
 		directorView1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		directorView1.getContentPane().setLayout(null);
 	}
-
 }
