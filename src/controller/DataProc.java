@@ -63,6 +63,7 @@ public class DataProc
 		else if (DatabaseQueries.employeLoggedIn)
 		{
 			EmployeeView1.employeeView1.setVisible(true);
+			EmployeeView1.employeeView1.setLocationRelativeTo(null);
 		}
 		else if (DatabaseQueries.chefProjetLoggedIn)
 		{

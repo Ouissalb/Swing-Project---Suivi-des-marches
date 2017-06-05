@@ -50,7 +50,7 @@ public class LoginWindow {
 		
 		usernameField = new JTextField();
 		usernameField.setBounds(124, 82, 147, 35);
-		usernameField.setText("Password");
+		usernameField.setText("Nom d'utilisateur");
 		frameWithBackgroundImage.getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
@@ -138,5 +138,12 @@ public class LoginWindow {
 		}
 
 		return sb.toString();
-		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }
