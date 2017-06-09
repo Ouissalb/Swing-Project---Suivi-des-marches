@@ -1,6 +1,5 @@
 package model;
 
-
 import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;

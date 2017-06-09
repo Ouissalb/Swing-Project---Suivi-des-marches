@@ -28,16 +28,28 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
+import controller.* ;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import model.Licence;
+import model.Materiel;
+import model.Tache;
+import view.*;
 
 public class EmployeeView2Formulaire {
 	private JProgressBar progressBarFormulaire1;
-	
+	ProjetCreationController pcc ;
+        TacheCreationController tcc ;
+        private MessageBoxes msg = new MessageBoxes();
+        
 	// Pour remplir les comboBox
 	String jours = "Jours";
 	String mois = "Mois";
-	String semaines = "Semaines";
 	String annees = "Années";
-	String[] comboBoxElementsforForm1And2 = { jours, mois, semaines, annees };
+	String[] comboBoxElementsforForm1And2 = { jours, mois, annees };
 	
 	//******
 	private ImagePanel panelForm2;
@@ -48,7 +60,7 @@ public class EmployeeView2Formulaire {
 	 * using EmployeeView2Formulaire.getMaterialsSaisisArraylist ... same for the rest
 	 */
 	private static ArrayList listeDesMaterielsSaisis;  
-	private static ArrayList listeDesLicensesSaisies;  
+	private static ArrayList listeDesLicensesSaisies;
 	
 	public String getMaterialValue()
 	{
@@ -69,8 +81,6 @@ public class EmployeeView2Formulaire {
 	{
 		return listeDesLicensesSaisies;
 	}
-	
-
 
 	public static JFrameWithBackgroundImage employeeView2Formulaire;
 
@@ -79,6 +89,8 @@ public class EmployeeView2Formulaire {
 	}
 
 	private void initialize() {
+                pcc = new ProjetCreationController();
+                tcc = new TacheCreationController();                
 		employeeView2Formulaire = new JFrameWithBackgroundImage("green3.jpg");
 		employeeView2Formulaire.setBounds(100, 100, 600, 400);
 		employeeView2Formulaire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,23 +114,26 @@ public class EmployeeView2Formulaire {
 		objectifProjetLabel.setBounds(63, 36, 177, 27);
 		panelForm1.add(objectifProjetLabel);
 		
-		Label dureeProjet = new Label("Durée :");
+		Label dureeProjet = new Label("Date  :");
 		dureeProjet.setBackground(Color.WHITE);
 		dureeProjet.setFont(UIManager.getFont("PasswordField.font"));
 		dureeProjet.setAlignment(Label.CENTER);
 		dureeProjet.setBounds(63, 108, 177, 27);
 		panelForm1.add(dureeProjet);
 		
-		JSpinner spinnerDuree = new JSpinner();
-		spinnerDuree.setBounds(277, 108, 123, 27);
-		panelForm1.add(spinnerDuree);
+                Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+                
+                UtilDateModel model1 = new UtilDateModel();
+                JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p );
+                JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+		datePicker1.setBounds(277, 108, 123, 27);
+		panelForm1.add(datePicker1);
 		
 		/* POPULATING THE COMBOBOX */
 
-		
-		JComboBox comboBoxDuree = new JComboBox(comboBoxElementsforForm1And2);
-		comboBoxDuree.setBounds(412, 108, 128, 46);
-		panelForm1.add(comboBoxDuree);
 		
 		Label labelBudget = new Label("Budget (MDH)  :");
 		labelBudget.setBackground(Color.WHITE);
@@ -128,8 +143,13 @@ public class EmployeeView2Formulaire {
 		panelForm1.add(labelBudget);
 		
 		
-		
 		JButton btnSuivant = new JButton("Suivant");
+                
+                SpinnerNumberModel mo = new SpinnerNumberModel(0,0,1000000,1);
+                JSpinner spinnerBudget = new JSpinner(mo);
+		spinnerBudget.setBounds(277, 180, 263, 27);
+		panelForm1.add(spinnerBudget);
+                
 		btnSuivant.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -137,11 +157,54 @@ public class EmployeeView2Formulaire {
 				// Some conditions must be added
 				// User can't click on suivant unless all fields have been filled
 				//same for all suivant buttons
-				panelForm1.setVisible(false);
-				progressBarFormulaire1.setValue(45);
-				createAndDisplaySecondFormPanel();
+                                
+                                //traitement
+                                try{
+                                if(!editorPane_1.getText().isEmpty())
+                                    pcc.setObjectif(editorPane_1.getText());      
+                                else
+                                    {
+                                        msg.incorrectObjectif();
+                                        throw new MonException();
+                                    }   
+
+                                Date selectedDate = (Date) datePicker1.getModel().getValue();
+                                //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                                //String reportDate = df.format(selectedDate);
+                                //System.out.println(selectedDate);
+                                
+                                Date today = new Date();
+                                Date after_15 = new Date(today.getTime() + (15000 * 60 * 60 * 24));
+                                
+                                //System.out.println(after_15);
+
+                                //System.out.println(selectedDate.before(after_15));
+                                
+                                if(selectedDate == null || selectedDate.before(after_15))
+                                {                                        
+                                    msg.incorrectDuree();
+                                    throw new MonException();
+                                }  
+                                else
+                                    pcc.setDateFinale(selectedDate);                                
+
+                                if(Integer.parseInt(spinnerBudget.getValue().toString()) != 0)
+                                    pcc.setBudget(Integer.parseInt(spinnerBudget.getValue().toString()));
+                                else
+                                {
+                                    msg.incorrectBudget();
+                                    throw new MonException();
+                                }
+                                
+                                    panelForm1.setVisible(false);
+                                    progressBarFormulaire1.setValue(45);
+                                    createAndDisplaySecondFormPanel();
+                                
+                                }catch (MonException e)
+                                {}
 				}
 		});
+                
 		btnSuivant.setBounds(334, 257, 96, 27);
 		panelForm1.add(btnSuivant);
 		
@@ -150,16 +213,11 @@ public class EmployeeView2Formulaire {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+                            employeeView2Formulaire.dispose();
 			}
 		});
 		btnAnnuler.setBounds(442, 257, 96, 27);
-		panelForm1.add(btnAnnuler);
-	
-		
-		JSpinner spinnerBudget = new JSpinner();
-		spinnerBudget.setBounds(277, 180, 263, 27);
-		panelForm1.add(spinnerBudget);
+		panelForm1.add(btnAnnuler);					
 		
 		
 	/*************************************************************************
@@ -229,9 +287,9 @@ public class EmployeeView2Formulaire {
 		dureeTache.setBounds(52, 167, 131, 27);
 		panelForm2.add(dureeTache);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(407, 167, 131, 27);
-		panelForm2.add(comboBox);
+		JLabel jours = new JLabel("Jours");
+		jours.setBounds(407, 167, 131, 27);
+		panelForm2.add(jours);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(275, 167, 106, 27);
@@ -248,7 +306,11 @@ public class EmployeeView2Formulaire {
 		JButton btnSuivantForm2 = new JButton("Suivant");
 		btnSuivantForm2.setBounds(332, 251, 96, 27);
 		panelForm2.add(btnSuivantForm2);
-		
+                
+                JLabel tache = new JLabel("Tache N° : "+ tcc.getNumTache());
+		tache.setBounds(203, 5, 131, 27);
+		panelForm2.add(tache);
+                
 		ajouterAutreTache.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -256,7 +318,43 @@ public class EmployeeView2Formulaire {
 				//check if everything is filled
 				//save first task to database by calling a function from the otehr package
 				// Empty the form
-				
+                                try{
+                                if(!ajouterTacheContenu.getText().isEmpty())
+                                    tcc.setContenu(ajouterTacheContenu.getText());      
+                                else
+                                    {
+                                        msg.incorrectContenuTache();
+                                        throw new MonException();
+                                    }   
+                                
+                                Date selectedDate = (Date) datePicker.getModel().getValue();
+                                System.out.println(selectedDate);
+                                System.out.println(pcc.getDateFinale());
+                                
+                                if(selectedDate == null || selectedDate.after(pcc.getDateFinale()))
+                                {
+                                    msg.incorrectDate();
+                                    throw new MonException();
+                                }
+                                else    
+                                    tcc.setDate(selectedDate);
+                                
+                                if(Integer.parseInt(spinner.getValue().toString()) != 0)
+                                    tcc.setDuree(Integer.parseInt(spinner.getValue().toString()));
+                                else
+                                {
+                                    msg.incorrectDureeTache();
+                                    throw new MonException();
+                                }
+                                
+                                pcc.ajouterTache(tcc.getTache());
+                                ajouterTacheContenu.setText("");
+                                spinner.setValue(0);
+                                tcc = new TacheCreationController();
+                                tache.setText("Tache N° : "+tcc.getNumTache());
+                                
+                                }catch (MonException e)
+                                {}
 				}
 		});
 		
@@ -264,18 +362,64 @@ public class EmployeeView2Formulaire {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
+                            try{
+                                if(!ajouterTacheContenu.getText().isEmpty())
+                                    tcc.setContenu(ajouterTacheContenu.getText());      
+                                else
+                                    {
+                                        msg.incorrectContenuTache();
+                                        throw new MonException();
+                                    }   
+                                
+                                /*
+                                Date selectedDate = (Date) datePicker.getModel().getValue();
+                                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                                String reportDate = df.format(selectedDate);
+                                System.out.println(selectedDate);
+                                */
+                                                                
+                                Date selectedDate = (Date) datePicker.getModel().getValue();
+                                System.out.println(selectedDate);
+                                System.out.println(pcc.getDateFinale());
+                                
+                                if(selectedDate == null || selectedDate.after(pcc.getDateFinale()))
+                                {
+                                    msg.incorrectDate();
+                                    throw new MonException();
+                                }
+                                else    
+                                    tcc.setDate(selectedDate);
+                                
+                                if(Integer.parseInt(spinner.getValue().toString()) != 0)
+                                    tcc.setDuree(Integer.parseInt(spinner.getValue().toString()));
+                                else
+                                {
+                                    msg.incorrectDureeTache();
+                                    throw new MonException();
+                                }
+                                
+                                pcc.ajouterTache(tcc.getTache());
+                                ajouterTacheContenu.setText("");
+                                spinner.setValue(0);
+                                
 				panelForm2.setVisible(false);
 				progressBarFormulaire1.setValue(75);
 				createAndDisplayThirdFormPanel();
-				}
-		});
+                                
+				}catch (MonException e)
+                                {}
+                            }
+                    });
 		
 		btnAnnulerForm2.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				// TODO
-				}
+                            //Tache.compteur = 1;
+                            
+                            employeeView2Formulaire.dispose();                            
+                            // TODO
+                        }
 		});
 		
 		/*JLabel lblDateWillBe = new JLabel("DATE WILL BE AT THIS POSITION");
@@ -313,7 +457,14 @@ public class EmployeeView2Formulaire {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				  MaterialValue = JOptionPane.showInputDialog("Veuillez saisir un matériel");  
+				  MaterialValue = JOptionPane.showInputDialog("Veuillez saisir un matériel"); 
+                                  
+                                  while(MaterialValue.isEmpty())
+                                      MaterialValue = JOptionPane.showInputDialog("Vous n'avez pas rentrez de materiel");
+                                  
+                                  Materiel m = new Materiel(MaterialValue);
+                                  pcc.addMaterial(m);
+                                  
 				  // check if user didn't enter anything
 				  //save each value in the arrayList that will be accessed from the other package
 				  //same for Licenses
@@ -326,6 +477,13 @@ public class EmployeeView2Formulaire {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				LicenseValue = JOptionPane.showInputDialog("Veuillez saisir une license");  
+                                
+                                while(LicenseValue.isEmpty())
+                                    LicenseValue = JOptionPane.showInputDialog("Vous n'avez pas rentrez de licence");
+                                
+                                Licence l = new Licence(LicenseValue);
+                                
+                                pcc.addLicence(l);
 				}
 		});
 		
@@ -333,17 +491,27 @@ public class EmployeeView2Formulaire {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				// go back to the other window (or close the application)
-				}
+                            // go back to the other window (or close the application)
+                            //stocker tt le projet
+                            pcc.stockerProjet();   
+                            employeeView2Formulaire.dispose();
+                            EmployeeView1 a = new EmployeeView1();
+                            a.employeeView1.setVisible(true);
+							/*EmployeeView1.employeeView1.setVisible(true);
+							employeeView2Formulaire.setVisible(false);*/
+			}
 		});
 		
 		btnAnnulerFormulaire3.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				// Close the application
-				}
+                            employeeView2Formulaire.dispose();
+                            //we do not need to destroy project when user will reenter a new project there will be a new pcc instance
+                        }
 		});
 	}
 	
+	
+
 }

@@ -1,7 +1,9 @@
 
 package controller;
-import javax.swing.JOptionPane;
 
+
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 import model.*;
 import view.*;
@@ -48,10 +50,10 @@ public class DataProc
 	
 	public void loggedInSuccessfully(String username, String password, String typeSalarie)
 	{
-		 if (login(username, password, typeSalarie)== true)
-			 System.out.println("logged in");
-		 else
-			 System.out.println("some issue happened");
+            if (login(username, password, typeSalarie)== true)
+		System.out.println("logged in");
+            else
+                System.out.println("some issue happened");
 	}
 	
 	public static void showTheNextWindow()
@@ -63,14 +65,21 @@ public class DataProc
 		else if (DatabaseQueries.employeLoggedIn)
 		{
 			EmployeeView1.employeeView1.setVisible(true);
-			EmployeeView1.employeeView1.setLocationRelativeTo(null);
 		}
 		else if (DatabaseQueries.chefProjetLoggedIn)
 		{
 			//ChefProjetView1.chefProjetView1.setVisible(true);
-		}
-		
+		}		
 	}
-	
-	
+        
+        public String[] getProjects()
+        {
+            return this.dbQuerie.getProjects();
+        }
+        /*
+        public int getProjectId()
+        {
+            return this.dbQuerie.getProjectId();
+        }
+        */
 }

@@ -4,16 +4,25 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.swing.ComboBoxModel;
+
+import view.LoginWindow;
 
 public class DatabaseQueries 
 {
+        public static int projet_courant ;
 	public static boolean employeLoggedIn = false;
 	public static boolean directorLoggedIn = false;
 	public static boolean chefProjetLoggedIn = false;
 	
-	ResultSet rs = null;
-	Connection connection = null;
-	Statement statement = null; 
+	static ResultSet rs = null;
+	static ResultSet rs2 = null;
+	static Connection connection = null;
+	static Statement statement = null; 
 	
 	public Employee getEmployee(String employeUsername)  
 	{				
@@ -55,7 +64,7 @@ public class DatabaseQueries
 			statement = connection.createStatement();
 			rs = statement.executeQuery(query);
 			
-			if (rs.next()) 
+			if (rs.next())
 			{
 				tempUSERNAME1 = rs.getString("USERNAME");
 			}
@@ -134,5 +143,270 @@ public class DatabaseQueries
 			}
 		}
 	}
-
+        
+        public boolean setProjetInDB(Projet projet)
+        {
+            String query1 = "SELECT * FROM EMPLOYE WHERE USERNAME = '"+LoginWindow.user_logged_in+"' ;";
+            String user_service = "";
+            
+            try {			
+                connection = JDBCMySQLConnection.getConnection();
+                statement = connection.createStatement();
+		rs = statement.executeQuery(query1);
+		if (rs.next()) 
+                {
+                    user_service = rs.getString("SERVICE");
+                    System.out.println("waaaaawawaa\n\t"+user_service+"\t");
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+		}
+            
+            System.out.println("Are you here?");
+            System.out.println(user_service);
+            
+            System.out.println("hahouwaaaaa\n\t");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String reportDate = df.format(projet.getDateFinale());
+            System.out.println(reportDate);
+            
+            String query = "INSERT INTO PROJET (OBJECTIF, DATE, ESTIMATION_BUDGET, SERVICE) VALUES " +
+                    " (\"" +
+                        //projet.getId() +", \""+ AUTOINCREMENT
+                        projet.getObjectif() +"\", '" +
+                        reportDate+"', " +
+                        projet.getBudget()+", \""+
+                        user_service +"\"" 
+                    + ");";
+                        
+            System.out.println(query);
+            
+            try {
+                connection = JDBCMySQLConnection.getConnection();
+                statement = connection.createStatement();
+		int a = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+                System.out.println("Project ID aaaaaaaaaa\n\t" + a + "\t\n");
+		if (a>0) 
+                {
+                    projet_courant = a;
+                    return true;
+		}
+                else
+                    return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+		}
+            return false;
+        }
+        
+        public boolean setTache(Tache tache)
+        {
+            System.out.println("hahouwaaaaa\n\t");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String reportDate = df.format(tache.getDate());
+            System.out.println(reportDate);
+            
+            String query = "INSERT INTO TACHE (CONTENU, DATE_FINALE, DUREE, ID_PROJET) VALUES "
+                    + "(\"" +
+                        //+ tache.getNumero() +", \""+
+                        tache.getContenu() +"\", '" +
+                        reportDate+"', " +
+                        tache.getDuree()+", "+
+                        //tache.getEtat()+"\", "+
+                        projet_courant +""
+                    + ");";
+            
+            System.out.println(query);
+            
+            try {
+                connection = JDBCMySQLConnection.getConnection();
+                statement = connection.createStatement();
+		int b = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+                System.out.println("\n\t bbbbbb = " + b + "\t\n");
+                return b>0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+		}
+            return false;
+        }
+        
+        public String[] getProjects()
+        {
+            String query = "SELECT * FROM PROJET;";
+            try{
+                
+            String[] a = new String[10];
+            connection = JDBCMySQLConnection.getConnection();
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            int i = 0;
+            while(rs.next() && i < 10)
+            {
+                a[i] = "id :" + Integer.toString(rs.getInt("ID")) +" Ojectif :"+ rs.getString("OBJECTIF");
+                System.out.println(a.length);
+                ++i;
+            }            
+            return a;
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }finally
+            {
+                if (connection != null) 
+                {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+        
+        public static String[] populatingComboBoxWithProjects()
+        {
+    		String query = "SELECT * FROM PROJET";  //service will be added later 
+    		ArrayList<String> comboBoxProjects = new ArrayList<String>();
+    		try {			
+    			connection = JDBCMySQLConnection.getConnection();
+    			statement = connection.createStatement();
+    			rs = statement.executeQuery(query);
+    			
+    			if (rs.next()) {
+    				comboBoxProjects.add(rs.getString("OBJECTIF"));		
+    			}
+    		
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		} finally {
+    			if (connection != null) {
+    				try {
+    					connection.close();
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    		String [] projectsArray = comboBoxProjects.toArray(new String[comboBoxProjects.size()]);
+    		return projectsArray;
+        	
+        }
 }
+        
+        /*public static String[] populatingListWithTasks(String projetObj)
+        {
+    		String query = "SELECT * FROM PROJET WHERE OBJECTIF = '"+projetObj+"'";  
+    		int idProjet = 0;
+    		ArrayList<String> listTasks = new ArrayList<String>();
+    		try {			
+    			connection = JDBCMySQLConnection.getConnection();
+    			statement = connection.createStatement();
+    			rs = statement.executeQuery(query);
+    			
+    			if (rs.next()) {
+    				idProjet = rs.getInt("ID");	
+    				System.out.println(idProjet);
+    			}
+    		
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		} finally {
+    			if (connection != null) {
+    				try {
+    					connection.close();
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    		String query2 = "SELECT * FROM TACHE WHERE ID_PROJET = '"+idProjet+"'";  
+    		
+    		try {			
+    			connection = JDBCMySQLConnection.getConnection();
+    			statement = connection.createStatement();
+    			rs2 = statement.executeQuery(query2);
+    			
+    			if (rs.next()) {
+    				listTasks.add(rs2.getString("CONTENU"));	
+    				System.out.println(rs2.getString("CONTENU"));
+    			}
+    		
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		} finally {
+    			if (connection != null) {
+    				try {
+    					connection.close();
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		}
+    		
+    		String [] tasksArray = listTasks.toArray(new String[listTasks.size()]);
+    		return tasksArray;
+        	
+        }
+        
+}*/
+	
+        /*
+        public int getProjectId()
+        {
+            try
+            {
+            String query = "select ID from PROJET;";
+            connection = JDBCMySQLConnection.getConnection();
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            int id = 1;
+            while(rs.next())
+            {
+                id = rs.getInt("ID");
+            }            
+            return id;
+            
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }finally
+            {
+                if (connection != null) 
+                {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return 1;
+        }
+}*/
+
+	

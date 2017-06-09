@@ -17,6 +17,11 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.JList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ThisIsJustForTesting {
 
@@ -50,27 +55,66 @@ public class ThisIsJustForTesting {
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, null);
 		panelForm2.add(datePicker);*/
 
+		ImagePanel panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelForm4.setBounds(0, 46, 592, 321);
+		frame.getContentPane().add(panelForm4);
+		panelForm4.setLayout(null);
 		
+		JPanel sidePanelChef1 = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/blue2.png");
+		sidePanelChef1.setBounds(0, -45, 150, 366);
+		panelForm4.add(sidePanelChef1);
+		sidePanelChef1.setLayout(null);
 		
-		ImagePanel panelForm3= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
-		panelForm3.setBounds(0, 57, 592, 310);
-		frame.getContentPane().add(panelForm3);
-		panelForm3.setLayout(null);
+		JButton btnValiderChef1 = new JButton("Validation");
+		btnValiderChef1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnValiderChef1.setFont(new Font("Dialog", Font.BOLD, 11));
+		btnValiderChef1.setBounds(23, 91, 98, 49);
+		sidePanelChef1.add(btnValiderChef1);
 		
-		JButton btnAjouterMateriel = new JButton("Ajouter un matériel");
-		btnAjouterMateriel.setBounds(227, 64, 155, 42);
-		panelForm3.add(btnAjouterMateriel);
+		JButton btnDeroulementChef = new JButton("Déroulement");
+		btnDeroulementChef.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDeroulementChef.setFont(new Font("Dialog", Font.BOLD, 11));
+		btnDeroulementChef.setBounds(23, 174, 98, 49);
+		sidePanelChef1.add(btnDeroulementChef);
 		
-		JButton btnAjouterLicense = new JButton("Ajouter une license");
-		btnAjouterLicense.setBounds(227, 141, 155, 42);
-		panelForm3.add(btnAjouterLicense);
+		JButton btnStatistiques = new JButton("Statistiques");
+		btnStatistiques.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnStatistiques.setFont(new Font("Dialog", Font.BOLD, 11));
+		btnStatistiques.setBounds(23, 260, 98, 49);
+		sidePanelChef1.add(btnStatistiques);
 		
-		JButton btnAnnulerFormulaire3 = new JButton("Annuler");
-		btnAnnulerFormulaire3.setBounds(453, 244, 96, 27);
-		panelForm3.add(btnAnnulerFormulaire3);
+		JPanel mainPanelChef1 =  new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		mainPanelChef1.setBounds(148, 0, 444, 321);
+		panelForm4.add(mainPanelChef1);
+		mainPanelChef1.setLayout(null);
 		
-		JButton btnSuivantFormulaire3 = new JButton("Suivant");
-		btnSuivantFormulaire3.setBounds(333, 244, 96, 27);
-		panelForm3.add(btnSuivantFormulaire3);
+		JList list = new JList();
+		list.setBounds(47, 36, 344, 186);
+		mainPanelChef1.add(list);
+		
+		JButton validerTaches = new JButton("Valider");
+		validerTaches.setBounds(168, 240, 96, 27);
+		mainPanelChef1.add(validerTaches);
+		
+		JPanel panelNotif = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/icon3.png");
+		panelNotif.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MessageBoxes.vousAvezUneNotification();
+			}
+		});
+		panelNotif.setBounds(539, 0, 53, 46);
+		frame.getContentPane().add(panelNotif);
+
+		
 	}
 }

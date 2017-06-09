@@ -1,13 +1,13 @@
 package model;
 
-
 public class Employee {
 	
 	private String empNom;
 	private String empPrenom;
 	private String empUsername;
 	private String empPassword;
-	
+	private String service;
+        
 	public String getempNom() {
 		return empNom;
 	}
