@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import controller.ProjetCreationController;
 import controller.TacheCreationController;
@@ -27,6 +29,13 @@ public class EmployeeView3 {
 	private ImagePanel panelForm5;
 	private ImagePanel panelForm7;
 	private ImagePanel panelForm8;
+	private JPanel projectInfo;
+	private JPanel panelThatWillChange2;
+	private JPanel panelThatWillChange3;
+	private JPanel panelThatWillChange4;
+	private JPanel panelThatWillChange5;
+	private JPanel panelThatWillChange6;
+	private JPanel panelThatWillChange7;
 	
 	private String commentValue;
 	
@@ -39,68 +48,189 @@ public class EmployeeView3 {
         employeeView3.setLocationRelativeTo(null);
         employeeView3.getContentPane().setLayout(null);
         
-        panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
-		panelForm4.setBounds(0, 57, 592, 310);
-		employeeView3.getContentPane().add(panelForm4);
-		panelForm4.setLayout(null);
+
+		projectInfo= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		projectInfo.setBounds(0, 0, 592, 367);
+		employeeView3.getContentPane().add(projectInfo);
+		projectInfo.setLayout(null);
 		
-		JButton validerTacheBouton = new JButton("Valider des tâches");
-		validerTacheBouton.addActionListener(new ActionListener() {
+		JPanel panelThatWillChange = new JPanel();
+		panelThatWillChange.setBounds(33, 48, 356, 222);
+		projectInfo.add(panelThatWillChange);
+		
+		JButton btnObjectif = new JButton("Objectif");
+		btnObjectif.setBounds(427, 48, 121, 27);
+		projectInfo.add(btnObjectif);
+		
+		
+		
+		btnObjectif.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				panelForm4.setVisible(false);
-				createAndDisplayValidatingTasksPanel();
-			}
-		});
-		validerTacheBouton.setBounds(191, 37, 213, 46);
-		panelForm4.add(validerTacheBouton);
-		
-		JButton signalerTachesBouton = new JButton("Signaler des tâches");
-		signalerTachesBouton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelForm4.setVisible(false);
-				createAndDisplaySignalerTasksPanel();
-			}
-		});
-		signalerTachesBouton.setBounds(191, 95, 213, 46);
-		panelForm4.add(signalerTachesBouton);
-		
-		JButton approuverTachesBouton = new JButton("Approuver les tâches réalisés");
-		approuverTachesBouton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelForm4.setVisible(false);
-				approveTasksPanel();
-			}
-		});
-		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setBounds(484, 271, 96, 27);
-		panelForm4.add(btnRetour);
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EmployeeView1.employeeView1.setVisible(true);
-				employeeView3.setVisible(false);
-			}
-		});
-		
-		approuverTachesBouton.setBounds(191, 153, 213, 46);
-		
-		JButton commentTask = new JButton("Commenter des tâches");
-		commentTask.setBounds(191, 211, 213, 46);
-		panelForm4.add(commentTask);
-		
-		commentTask.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelForm4.setVisible(false);
-				commentTasksPannel();
+				
+				showObjectives();
+				panelThatWillChange.setVisible(false);
 				
 			}
 		});
 		
-		panelForm4.add(approuverTachesBouton);
-		panelForm4.setVisible(true);
-
+		JButton boutonSuivant = new JButton("Suivant >");
+		boutonSuivant.setBounds(427, 312, 121, 27);
+		projectInfo.add(boutonSuivant);
+		
+		
+		boutonSuivant.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				projectInfo.setVisible(false);
+				tasksPanel();
+			}
+		});
+		
+			
+		JButton btnTaches = new JButton("Taches en cours");
+		btnTaches.setBounds(427, 87, 121, 27);
+		projectInfo.add(btnTaches);
+		
+		btnTaches.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				
+				panelThatWillChange.setVisible(false);
+				addTasksEnCours();	
+				
+			}
+		});
+		
+		JButton btnTachesValides = new JButton("Taches validées");
+		btnTachesValides.setBounds(427, 126, 121, 27);
+		projectInfo.add(btnTachesValides);
+		
+		btnTachesValides.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				panelThatWillChange.setVisible(false);
+				addTasksValidees();		
+			
+				
+			}
+		});
+		
+		
+		JButton btnMatriel = new JButton("Matériel");
+		btnMatriel.setBounds(427, 165, 121, 27);
+		projectInfo.add(btnMatriel);
+		
+		btnMatriel.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showMateriel();
+				
+				panelThatWillChange.setVisible(false);
+				
+			}
+		});
+		
+		
+		JButton btnLicenses = new JButton("Licenses");
+		btnLicenses.setBounds(427, 204, 121, 27);
+		projectInfo.add(btnLicenses);
+		
+		btnLicenses.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showLicenses();			
+				panelThatWillChange.setVisible(false);
+				
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("Date et état");
+		btnNewButton_1.setBounds(427, 243, 121, 27);
+		projectInfo.add(btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				showDateAntState();			
+				panelThatWillChange.setVisible(false);
+				
+			}
+		});
+		
+		projectInfo.setVisible(true);
 	}
+	
+	public void showObjectives()
+	{
+		hidePanels(2);
+		panelThatWillChange2 = new JPanel();
+		panelThatWillChange2.setBounds(33, 48, 356, 222);
+		projectInfo.add(panelThatWillChange2);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(0, 0, 356, 222);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		panelThatWillChange2.add(textArea);
+		panelThatWillChange2.setVisible(true);
+		textArea.setText("The project's objectif will be written here !");
+	}
+	
+	
+	public void showMateriel()
+	{
+		hidePanels(3);
+		panelThatWillChange3 = new JPanel();
+		panelThatWillChange3.setBounds(33, 48, 356, 222);
+		projectInfo.add(panelThatWillChange3);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(0, 0, 356, 222);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		panelThatWillChange3.add(textArea);
+		panelThatWillChange3.setVisible(true);
+		textArea.setText("The project's materials will be written here !");
+	}
+	
+	public void showLicenses()
+	{
+		hidePanels(4);
+		panelThatWillChange4 = new JPanel();
+		panelThatWillChange4.setBounds(33, 48, 356, 222);
+		projectInfo.add(panelThatWillChange4);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(0, 0, 356, 222);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		panelThatWillChange4.add(textArea);
+		panelThatWillChange4.setVisible(true);
+		textArea.setText("The project's licenses will be written here !");
+	}
+	
+	public void showDateAntState()
+	{
+		hidePanels(5);
+		panelThatWillChange5 = new JPanel();
+		panelThatWillChange5.setBounds(33, 48, 356, 222);
+		projectInfo.add(panelThatWillChange5);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(0, 0, 356, 222);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		panelThatWillChange5.add(textArea);
+		panelThatWillChange5.setVisible(true);
+		textArea.setText("The project's limit date, duration, budget and state will be shown here !");
+	}
+
+        
+  
 	
 	public void createAndDisplayValidatingTasksPanel()
 	{
@@ -234,6 +364,112 @@ public class EmployeeView3 {
 			}
 		});
 	}
+	
+	public void addTasksEnCours()
+	{
+		hidePanels(6);
+		panelThatWillChange6 = new JPanel();
+		panelThatWillChange6.setBounds(33, 48, 356, 222);
+		panelThatWillChange6.setLayout(null);
+		projectInfo.add(panelThatWillChange6);
+		JList listTaches = new JList();
+		listTaches.setBounds(0, 0, 356, 222);
+		panelThatWillChange6.add(listTaches);
+		panelThatWillChange6.setVisible(true);
+	}
+	
+	public void addTasksValidees()
+	{
+		hidePanels(7);
+		panelThatWillChange7 = new JPanel();
+		panelThatWillChange7.setBounds(33, 48, 356, 222);
+		panelThatWillChange7.setLayout(null);
+		projectInfo.add(panelThatWillChange7);
+		JList listTaches = new JList();
+		listTaches.setBounds(0, 0, 356, 222);
+		panelThatWillChange7.add(listTaches);
+		panelThatWillChange7.setVisible(true);
+	}
+	
+	
+	
+	public void tasksPanel()
+	{
+		
+		  panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+			panelForm4.setBounds(0, 57, 592, 310);
+			employeeView3.getContentPane().add(panelForm4);
+			panelForm4.setLayout(null);
+			
+			JButton validerTacheBouton = new JButton("Valider des tâches");
+			validerTacheBouton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					panelForm4.setVisible(false);
+					createAndDisplayValidatingTasksPanel();
+				}
+			});
+			validerTacheBouton.setBounds(191, 37, 213, 46);
+			panelForm4.add(validerTacheBouton);
+			
+			JButton signalerTachesBouton = new JButton("Signaler des tâches");
+			signalerTachesBouton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					panelForm4.setVisible(false);
+					createAndDisplaySignalerTasksPanel();
+				}
+			});
+			signalerTachesBouton.setBounds(191, 95, 213, 46);
+			panelForm4.add(signalerTachesBouton);
+			
+			JButton approuverTachesBouton = new JButton("Approuver les tâches réalisés");
+			approuverTachesBouton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					panelForm4.setVisible(false);
+					approveTasksPanel();
+				}
+			});
+			
+			JButton btnRetour = new JButton("Retour");
+			btnRetour.setBounds(484, 271, 96, 27);
+			panelForm4.add(btnRetour);
+			btnRetour.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EmployeeView1.employeeView1.setVisible(true);
+					employeeView3.setVisible(false);
+				}
+			});
+			
+			approuverTachesBouton.setBounds(191, 153, 213, 46);
+			
+			JButton commentTask = new JButton("Commenter des tâches");
+			commentTask.setBounds(191, 211, 213, 46);
+			panelForm4.add(commentTask);
+			
+			commentTask.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					panelForm4.setVisible(false);
+					commentTasksPannel();
+					
+				}
+			});
+			
+			panelForm4.add(approuverTachesBouton);
+			panelForm4.setVisible(true);
+		
+	}
+	
+	private void hidePanels(int currentPanel){
+
+		//if (currentPanel != 1 && panelThatWillChange1 != null) panelThatWillChange1.setVisible(false);
+		if (currentPanel != 2 && panelThatWillChange2 != null) panelThatWillChange2.setVisible(false);
+		if (currentPanel != 3 && panelThatWillChange3 != null) panelThatWillChange3.setVisible(false);
+		if (currentPanel != 4 && panelThatWillChange4 != null) panelThatWillChange4.setVisible(false);
+		if (currentPanel != 5 && panelThatWillChange5 != null) panelThatWillChange5.setVisible(false);
+		if (currentPanel != 6 && panelThatWillChange6 != null) panelThatWillChange6.setVisible(false);
+		if (currentPanel != 7 && panelThatWillChange7 != null) panelThatWillChange7.setVisible(false);
+
+		}
 	
 	
 }

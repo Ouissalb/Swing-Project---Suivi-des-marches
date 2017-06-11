@@ -32,6 +32,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToolBar;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class ThisIsJustForTesting {
 
@@ -63,6 +66,27 @@ public class ThisIsJustForTesting {
 		panelForm4.setBounds(0, 45, 592, 299);
 		frame.getContentPane().add(panelForm4);
 		panelForm4.setLayout(null);
+		
+		JPanel panelThatWillChange = new JPanel();
+		panelThatWillChange.setBounds(33, 30, 356, 222);
+		panelForm4.add(panelThatWillChange);
+		panelThatWillChange.setLayout(null);
+		
+		JList listTaches = new JList();
+		listTaches.setBounds(0, 0, 356, 222);
+		panelThatWillChange.add(listTaches);
+		
+		JButton btnMatriel = new JButton("Matériel");
+		btnMatriel.setBounds(427, 147, 121, 27);
+		panelForm4.add(btnMatriel);
+		
+		JButton btnLicenses = new JButton("Licenses");
+		btnLicenses.setBounds(427, 186, 121, 27);
+		panelForm4.add(btnLicenses);
+		
+		JButton btnNewButton_1 = new JButton("État et budget");
+		btnNewButton_1.setBounds(427, 225, 121, 27);
+		panelForm4.add(btnNewButton_1);
 		/*
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBounds(0, 0, 444, 26);
@@ -136,7 +160,7 @@ public class ThisIsJustForTesting {
 	            
 	            
 	            
-	            Action validertaskAction = new AbstractAction("Valider tache", taskIcon) {
+	            Action validertaskAction = new AbstractAction("Valider une tache", taskIcon) {
 	                @Override
 	                public void actionPerformed(ActionEvent e) {
 	                    System.out.println("Taches");
@@ -150,7 +174,7 @@ public class ThisIsJustForTesting {
 	                }
 	            };
 	            
-	            Action afficherTachesSignaleAction = new AbstractAction("Afficher les les taches signalées", taskIcon) {
+	            Action afficherTachesSignaleAction = new AbstractAction("Afficher les taches signalées", taskIcon) {
 	                @Override
 	                public void actionPerformed(ActionEvent e) {
 	                    System.out.println("Taches");
@@ -170,6 +194,11 @@ public class ThisIsJustForTesting {
 	            
 	            frame.setJMenuBar(menuBar);
 
+	            
+	            /*
+	             * 
+	             */
 		
+	            
 	}
 }

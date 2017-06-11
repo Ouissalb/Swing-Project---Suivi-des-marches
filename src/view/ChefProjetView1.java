@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+import controller.SetVisibility;
+
 public class ChefProjetView1 {
 
 	public static JFrameWithBackgroundImage chefProjetView1;
@@ -91,7 +93,7 @@ public class ChefProjetView1 {
 	                public void actionPerformed(ActionEvent e) 
 	                {
 	                	//panelForm4.setVisible(false);
-	                	setComponentVisibility(chefProjetView1, JPanel.class, false);
+	                	SetVisibility.setComponentVisibility(chefProjetView1, JPanel.class, false);
 	                	openProjectPanel();
 	                }
 	            };
@@ -139,7 +141,7 @@ public class ChefProjetView1 {
 	            Action validertaskAction = new AbstractAction("Valider une tache", taskIcon) {
 	                @Override
 	                public void actionPerformed(ActionEvent e) {
-	                	setComponentVisibility(chefProjetView1, JPanel.class, false);
+	                	SetVisibility.setComponentVisibility(chefProjetView1, JPanel.class, false);
 	                    createAndDisplayValidatingTasksPanel();
 	                }
 	            };
@@ -147,7 +149,7 @@ public class ChefProjetView1 {
 	            Action validerCommentairestaskAction = new AbstractAction("Afficher les commentaires", taskIcon) {
 	                @Override
 	                public void actionPerformed(ActionEvent e) {
-	                	setComponentVisibility(chefProjetView1, JPanel.class, false);
+	                	SetVisibility.setComponentVisibility(chefProjetView1, JPanel.class, false);
 	                	 afficherCommentaires();
 	                }
 	            };
@@ -155,7 +157,7 @@ public class ChefProjetView1 {
 	            Action afficherTachesSignaleAction = new AbstractAction("Afficher les les taches signalées", taskIcon) {
 	                @Override
 	                public void actionPerformed(ActionEvent e) {
-	                	setComponentVisibility(chefProjetView1, JPanel.class, false);
+	                	SetVisibility.setComponentVisibility(chefProjetView1, JPanel.class, false);
 	                	createAndDisplayReportTasksPanel();
 	                }
 	            };
@@ -214,10 +216,8 @@ public class ChefProjetView1 {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
-				panelThatWillChange.setVisible(false);
-				addTasksEnCours();	
-				
+				addTasksEnCours();				
+				panelThatWillChange.setVisible(false);				
 			}
 		});
 		
@@ -230,9 +230,7 @@ public class ChefProjetView1 {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				panelThatWillChange.setVisible(false);
-				addTasksValidees();		
-			
-				
+				addTasksValidees();						
 			}
 		});
 		
@@ -286,6 +284,7 @@ public class ChefProjetView1 {
 	
 	public void showObjectives()
 	{
+		hidePanels(2);
 		panelThatWillChange2 = new JPanel();
 		panelThatWillChange2.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange2);
@@ -301,6 +300,7 @@ public class ChefProjetView1 {
 	
 	public void showMateriel()
 	{
+		hidePanels(3);
 		panelThatWillChange3 = new JPanel();
 		panelThatWillChange3.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange3);
@@ -315,6 +315,7 @@ public class ChefProjetView1 {
 	
 	public void showLicenses()
 	{
+		hidePanels(4);
 		panelThatWillChange4 = new JPanel();
 		panelThatWillChange4.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange4);
@@ -329,6 +330,7 @@ public class ChefProjetView1 {
 	
 	public void showDateAntState()
 	{
+		hidePanels(5);
 		panelThatWillChange5 = new JPanel();
 		panelThatWillChange5.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange5);
@@ -345,25 +347,38 @@ public class ChefProjetView1 {
 	
 	public void addTasksEnCours()
 	{
+		hidePanels(6);
 		panelThatWillChange6 = new JPanel();
 		panelThatWillChange6.setBounds(33, 30, 356, 222);
 		panelThatWillChange6.setLayout(null);
-		panelChef1.add(panelThatWillChange6);
-		JList listTaches = new JList();
+		
+		//JList listTaches = new JList();
+
+		String[] listTEmpt = {"Something", " Antoher" };
+		JList<String> listTaches = new JList<String>(listTEmpt);
 		listTaches.setBounds(0, 0, 356, 222);
 		panelThatWillChange6.add(listTaches);
+	//	chefProjetView1.getContentPane().add(panelThatWillChange6);
+		panelChef1.add(panelThatWillChange6);
 		panelThatWillChange6.setVisible(true);
 	}
 	
 	public void addTasksValidees()
 	{
+		hidePanels(7);
 		panelThatWillChange7 = new JPanel();
 		panelThatWillChange7.setBounds(33, 30, 356, 222);
 		panelThatWillChange7.setLayout(null);
-		panelChef1.add(panelThatWillChange7);
-		JList listTaches = new JList();
+		
+		//JList listTaches = new JList();
+
+		String[] listTEmpt = {"the first elment of the list", " Antoher element" };
+		JList<String> listTaches = new JList<String>(listTEmpt);
 		listTaches.setBounds(0, 0, 356, 222);
 		panelThatWillChange7.add(listTaches);
+		panelChef1.add(panelThatWillChange7);
+		
+	//	chefProjetView1.getContentPane().add(panelThatWillChange7);
 		panelThatWillChange7.setVisible(true);
 	}
 	
@@ -420,6 +435,7 @@ public class ChefProjetView1 {
 	
 	public void afficherCommentaires()
 	{
+		
 		ImagePanel panelAfficherCommentaires= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 		panelAfficherCommentaires.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelAfficherCommentaires);
@@ -437,15 +453,18 @@ public class ChefProjetView1 {
 		panelAfficherCommentaires.setVisible(true);
 	}
 	
-	static void setComponentVisibility(Container container,
-	        Class<? extends Component> componentClass, boolean visible) {
-	    for (Component c : container.getComponents()) {
-	        if (componentClass.isAssignableFrom(c.getClass())) {
-	            c.setVisible(visible);
-	        } else if (c instanceof Container) {
-	            setComponentVisibility((Container)c, componentClass, visible);
-	        }
-	    }
-	}
+	
+	private void hidePanels(int currentPanel){
+
+		if (currentPanel != 1 && panelThatWillChange1 != null) panelThatWillChange1.setVisible(false);
+		if (currentPanel != 2 && panelThatWillChange2 != null) panelThatWillChange2.setVisible(false);
+		if (currentPanel != 3 && panelThatWillChange3 != null) panelThatWillChange3.setVisible(false);
+		if (currentPanel != 4 && panelThatWillChange4 != null) panelThatWillChange4.setVisible(false);
+		if (currentPanel != 5 && panelThatWillChange5 != null) panelThatWillChange5.setVisible(false);
+		if (currentPanel != 6 && panelThatWillChange6 != null) panelThatWillChange6.setVisible(false);
+		if (currentPanel != 7 && panelThatWillChange7 != null) panelThatWillChange7.setVisible(false);
+
+		}
+
 	
 }
