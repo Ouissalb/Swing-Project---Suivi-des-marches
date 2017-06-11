@@ -17,10 +17,12 @@ package view;
 
 		getContentPane().setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon("/home/ouissal/workspace/ProjetSuiviDesMarches/img/"+imageFilename)));
+		
 		getContentPane().setLayout(new FlowLayout());
 		getContentPane().setLayout(new BorderLayout());
 		setSize(399,399);
 		setSize(400,400);
+		setResizable(false);
 		}
 	}
 
