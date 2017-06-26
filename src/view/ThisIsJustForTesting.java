@@ -56,13 +56,13 @@ public class ThisIsJustForTesting {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrameWithBackgroundImage("white.jpg");
+		frame = new JFrameWithBackgroundImage("/white.jpg");
 		frame.setBounds(100, 100, 600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 
-		ImagePanel panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm4= new ImagePanel("/green3.jpg");
 		panelForm4.setBounds(0, 47, 592, 297);
 		frame.getContentPane().add(panelForm4);
 		panelForm4.setLayout(null);
@@ -96,7 +96,7 @@ public class ThisIsJustForTesting {
 		toolBar.setBounds(0, 0, 444, 26);
 		mainPanelChef1.add(toolBar);*/
 		
-		JPanel panelNotif = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/icon3.png");
+		JPanel panelNotif = new ImagePanel("icon3.png");
 		panelNotif.setBounds(539, 0, 53, 46);
 		frame.getContentPane().add(panelNotif);
 		panelNotif.addMouseListener(new MouseAdapter() {
@@ -107,14 +107,10 @@ public class ThisIsJustForTesting {
 		});
 		
 
-				ImageIcon openIcon = new ImageIcon(
-	                 ThisIsJustForTesting.class.getResource("/resources/images/icon1.png"));
-	            ImageIcon saveIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon2.png"));
-	            ImageIcon newIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon3.png"));
-	            ImageIcon taskIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon5.png"));
+				ImageIcon openIcon = ChefProjetView1.createImageIcon("/Sicon1.png", " Sicon1");
+	            ImageIcon saveIcon = ChefProjetView1.createImageIcon("/Sicon2.png", " Sicon2");
+	            ImageIcon newIcon = ChefProjetView1.createImageIcon("/Sicon3.png", "Sicon3");
+	            ImageIcon taskIcon = ChefProjetView1.createImageIcon("/Sicon5.png", "Sicon5");
 	            
 	            
 	            Action openAction = new AbstractAction("Ouvrir un projet", openIcon) {

@@ -91,14 +91,14 @@ public class EmployeeView2Formulaire {
 	private void initialize() {
                 pcc = new ProjetCreationController();
                 tcc = new TacheCreationController();                
-		employeeView2Formulaire = new JFrameWithBackgroundImage("green3.jpg");
+		employeeView2Formulaire = new JFrameWithBackgroundImage("/green3.jpg");
 		employeeView2Formulaire.setBounds(100, 100, 600, 400);
 		employeeView2Formulaire.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeeView2Formulaire.setLocationRelativeTo(null);
 		employeeView2Formulaire.getContentPane().setLayout(null);
 		
 		
-		ImagePanel panelForm1 = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm1 = new ImagePanel("/green3.jpg");
 		panelForm1.setBounds(0, 57, 592, 310);
 		employeeView2Formulaire.getContentPane().add(panelForm1);
 		panelForm1.setLayout(null);
@@ -240,7 +240,7 @@ public class EmployeeView2Formulaire {
 
 	public  void createAndDisplaySecondFormPanel()
 	{
-		ImagePanel panelForm2 = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm2 = new ImagePanel("/green3.jpg");
 		panelForm2.setBounds(0, 57, 592, 310);
 		employeeView2Formulaire.getContentPane().add(panelForm2);
 	
@@ -431,7 +431,7 @@ public class EmployeeView2Formulaire {
 	
 	public  void createAndDisplayThirdFormPanel()
 	{
-		ImagePanel panelForm3= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm3= new ImagePanel("/green3.jpg");
 		panelForm3.setBounds(0, 57, 592, 310);
 		employeeView2Formulaire.getContentPane().add(panelForm3);
 		panelForm3.setLayout(null);

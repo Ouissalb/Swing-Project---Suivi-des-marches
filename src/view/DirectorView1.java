@@ -51,14 +51,14 @@ public class DirectorView1 {
 	private void initialize() 
 	{
 		
-		directorView1 = new JFrameWithBackgroundImage("white.jpg");
+		directorView1 = new JFrameWithBackgroundImage("/white.jpg");
 		directorView1.setBounds(100, 100, 600, 400);
 		directorView1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		directorView1.getContentPane().setLayout(null);
 		directorView1.setLocationRelativeTo(null);
 		
 
-		ImagePanel panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm4= new ImagePanel("/green3.jpg");
 		panelForm4.setBounds(0, 45, 592, 299);
 		directorView1.getContentPane().add(panelForm4);
 		panelForm4.setLayout(null);
@@ -72,7 +72,7 @@ public class DirectorView1 {
 		toolBar.setBounds(0, 0, 444, 26);
 		mainPanelChef1.add(toolBar);*/
 		
-		JPanel panelNotif = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/icon3.png");
+		JPanel panelNotif = new ImagePanel("/icon3.png");
 		panelNotif.setBounds(539, 0, 53, 46);
 		directorView1.getContentPane().add(panelNotif);
 		panelNotif.addMouseListener(new MouseAdapter() {
@@ -84,13 +84,13 @@ public class DirectorView1 {
 		
 
 				ImageIcon openIcon = new ImageIcon(
-	                 ThisIsJustForTesting.class.getResource("/resources/images/icon1.png"));
+	                 ThisIsJustForTesting.class.getResource("/Sicon1.png"));
 	            ImageIcon saveIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon2.png"));
+	                    ThisIsJustForTesting.class.getResource("/Sicon2.png"));
 	            ImageIcon newIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon3.png"));
+	                    ThisIsJustForTesting.class.getResource("/Sicon3.png"));
 	            ImageIcon taskIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon5.png"));
+	                    ThisIsJustForTesting.class.getResource("/Sicon5.png"));
 	            
 	            
 	            Action openAction = new AbstractAction("Ouvrir un projet", openIcon) {
@@ -185,7 +185,7 @@ public class DirectorView1 {
 	public void openProjectPanel()
 	{
 
-		panelDir1= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelDir1= new ImagePanel("/green3.jpg");
 		panelDir1.setBounds(0, 45, 592, 299);
 		directorView1.getContentPane().add(panelDir1);
 		panelDir1.setLayout(null);
@@ -412,7 +412,7 @@ public class DirectorView1 {
 	
 	public void createAndDisplayValidatingTasksPanel()
 	{
-		panelValidateTask= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelValidateTask= new ImagePanel("/green3.jpg");
 		panelValidateTask.setBounds(0, 45, 592, 299);
 		directorView1.getContentPane().add(panelValidateTask);
 		panelValidateTask.setLayout(null);
@@ -437,7 +437,7 @@ public class DirectorView1 {
 	
 	public void createAndDisplayReportTasksPanel()
 	{
-		panelReportTask= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelReportTask= new ImagePanel("/green3.jpg");
 		panelReportTask.setBounds(0, 45, 592, 299);
 		directorView1.getContentPane().add(panelReportTask);
 		panelReportTask.setLayout(null);
@@ -463,7 +463,7 @@ public class DirectorView1 {
 	public void afficherCommentaires()
 	{
 		
-		ImagePanel panelAfficherCommentaires= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelAfficherCommentaires= new ImagePanel("/green3.jpg");
 		panelAfficherCommentaires.setBounds(0, 45, 592, 299);
 		directorView1.getContentPane().add(panelAfficherCommentaires);
 		panelAfficherCommentaires.setLayout(null);

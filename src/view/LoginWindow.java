@@ -46,7 +46,7 @@ public class LoginWindow {
             String chefProjetCB = "Chef de projet";
             String[] listeDesSalaries = { employeCB, directeurCB, chefProjetCB };
             
-            frameWithBackgroundImage = new JFrameWithBackgroundImage("image.png");
+            frameWithBackgroundImage = new JFrameWithBackgroundImage("/image.png");
             frameWithBackgroundImage.getContentPane().setLayout(null);
 		
             JButton btnLogin = new JButton("Login");

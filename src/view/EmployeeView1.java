@@ -25,7 +25,7 @@ public class EmployeeView1 {
 	}
 
 	private void initialize() {
-		employeeView1 = new JFrameWithBackgroundImage("image.png");
+		employeeView1 = new JFrameWithBackgroundImage("/image.png");
 		employeeView1.setBounds(100, 100, 400, 400);
 		employeeView1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeeView1.getContentPane().setLayout(null);

@@ -51,14 +51,14 @@ public class ChefProjetView1 {
 	private void initialize() 
 	{
 		
-		chefProjetView1 = new JFrameWithBackgroundImage("white.jpg");
+		chefProjetView1 = new JFrameWithBackgroundImage("/white.jpg");
 		chefProjetView1.setBounds(100, 100, 600, 400);
 		chefProjetView1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chefProjetView1.getContentPane().setLayout(null);
 		chefProjetView1.setLocationRelativeTo(null);
 		
 
-		ImagePanel panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelForm4= new ImagePanel("/green3.jpg");
 		panelForm4.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelForm4);
 		panelForm4.setLayout(null);
@@ -67,7 +67,7 @@ public class ChefProjetView1 {
 		toolBar.setBounds(0, 0, 444, 26);
 		mainPanelChef1.add(toolBar);*/
 		
-		JPanel panelNotif = new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/icon3.png");
+		JPanel panelNotif = new ImagePanel("/icon3.png");
 		panelNotif.setBounds(539, 0, 53, 46);
 		chefProjetView1.getContentPane().add(panelNotif);
 		panelNotif.addMouseListener(new MouseAdapter() {
@@ -78,14 +78,10 @@ public class ChefProjetView1 {
 		});
 		
 
-				ImageIcon openIcon = new ImageIcon(
-	                 ThisIsJustForTesting.class.getResource("/resources/images/icon1.png"));
-	            ImageIcon saveIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon2.png"));
-	            ImageIcon newIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon3.png"));
-	            ImageIcon taskIcon = new ImageIcon(
-	                    ThisIsJustForTesting.class.getResource("/resources/images/icon5.png"));
+				ImageIcon openIcon = createImageIcon("/Sicon1.png", "icon 1");
+	            ImageIcon saveIcon = createImageIcon("/Sicon2.png", "icon 2");
+	            ImageIcon newIcon = createImageIcon("/Sicon3.png", "icon 3");
+	            ImageIcon taskIcon = createImageIcon("/Sicon5.png", "icon 5");
 	            
 	            
 	            Action openAction = new AbstractAction("Ouvrir un projet", openIcon) {
@@ -175,12 +171,21 @@ public class ChefProjetView1 {
 	            
 	            chefProjetView1.setJMenuBar(menuBar);
 
+	}
+	public static  ImageIcon createImageIcon(String path,
+			String description) {
+		java.net.URL imgURL = ChefProjetView1.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL, description);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
 		}
-	
+	}
 	public void openProjectPanel()
 	{
 
-		panelChef1= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelChef1= new ImagePanel("/green3.jpg");
 		panelChef1.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelChef1);
 		panelChef1.setLayout(null);
@@ -284,7 +289,7 @@ public class ChefProjetView1 {
 	
 	public void showObjectives()
 	{
-		hidePanels(2);
+		hidePanels();
 		panelThatWillChange2 = new JPanel();
 		panelThatWillChange2.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange2);
@@ -300,7 +305,7 @@ public class ChefProjetView1 {
 	
 	public void showMateriel()
 	{
-		hidePanels(3);
+		hidePanels();
 		panelThatWillChange3 = new JPanel();
 		panelThatWillChange3.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange3);
@@ -315,7 +320,7 @@ public class ChefProjetView1 {
 	
 	public void showLicenses()
 	{
-		hidePanels(4);
+		hidePanels();
 		panelThatWillChange4 = new JPanel();
 		panelThatWillChange4.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange4);
@@ -330,7 +335,7 @@ public class ChefProjetView1 {
 	
 	public void showDateAntState()
 	{
-		hidePanels(5);
+		hidePanels();
 		panelThatWillChange5 = new JPanel();
 		panelThatWillChange5.setBounds(33, 30, 356, 222);
 		panelChef1.add(panelThatWillChange5);
@@ -347,7 +352,7 @@ public class ChefProjetView1 {
 	
 	public void addTasksEnCours()
 	{
-		hidePanels(6);
+		hidePanels();
 		panelThatWillChange6 = new JPanel();
 		panelThatWillChange6.setBounds(33, 30, 356, 222);
 		panelThatWillChange6.setLayout(null);
@@ -365,7 +370,7 @@ public class ChefProjetView1 {
 	
 	public void addTasksValidees()
 	{
-		hidePanels(7);
+		hidePanels();
 		panelThatWillChange7 = new JPanel();
 		panelThatWillChange7.setBounds(33, 30, 356, 222);
 		panelThatWillChange7.setLayout(null);
@@ -385,7 +390,7 @@ public class ChefProjetView1 {
 	
 	public void createAndDisplayValidatingTasksPanel()
 	{
-		panelValidateTask= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelValidateTask= new ImagePanel("/green3.jpg");
 		panelValidateTask.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelValidateTask);
 		panelValidateTask.setLayout(null);
@@ -410,7 +415,7 @@ public class ChefProjetView1 {
 	
 	public void createAndDisplayReportTasksPanel()
 	{
-		panelReportTask= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelReportTask= new ImagePanel("/green3.jpg");
 		panelReportTask.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelReportTask);
 		panelReportTask.setLayout(null);
@@ -436,7 +441,7 @@ public class ChefProjetView1 {
 	public void afficherCommentaires()
 	{
 		
-		ImagePanel panelAfficherCommentaires= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		ImagePanel panelAfficherCommentaires= new ImagePanel("/green3.jpg");
 		panelAfficherCommentaires.setBounds(0, 45, 592, 299);
 		chefProjetView1.getContentPane().add(panelAfficherCommentaires);
 		panelAfficherCommentaires.setLayout(null);
@@ -454,16 +459,26 @@ public class ChefProjetView1 {
 	}
 	
 	
-	private void hidePanels(int currentPanel){
+	private void hidePanels(){
 
-		if (currentPanel != 1 && panelThatWillChange1 != null) panelThatWillChange1.setVisible(false);
-		if (currentPanel != 2 && panelThatWillChange2 != null) panelThatWillChange2.setVisible(false);
-		if (currentPanel != 3 && panelThatWillChange3 != null) panelThatWillChange3.setVisible(false);
-		if (currentPanel != 4 && panelThatWillChange4 != null) panelThatWillChange4.setVisible(false);
-		if (currentPanel != 5 && panelThatWillChange5 != null) panelThatWillChange5.setVisible(false);
-		if (currentPanel != 6 && panelThatWillChange6 != null) panelThatWillChange6.setVisible(false);
-		if (currentPanel != 7 && panelThatWillChange7 != null) panelThatWillChange7.setVisible(false);
-
+		if ( panelThatWillChange1 != null) panelThatWillChange1.setVisible(false);
+		if ( panelThatWillChange2 != null) panelThatWillChange2.setVisible(false);
+		if ( panelThatWillChange3 != null) panelThatWillChange3.setVisible(false);
+		if ( panelThatWillChange4 != null) panelThatWillChange4.setVisible(false);
+		if ( panelThatWillChange5 != null) panelThatWillChange5.setVisible(false);
+		if ( panelThatWillChange6 != null) panelThatWillChange6.setVisible(false);
+		if ( panelThatWillChange7 != null) panelThatWillChange7.setVisible(false);
+		
+		if ( panelThatWillChange1 != null) chefProjetView1.getContentPane().remove(panelThatWillChange1);
+		
+		if ( panelThatWillChange2 != null) chefProjetView1.getContentPane().remove(panelThatWillChange2);
+		if ( panelThatWillChange3 != null) chefProjetView1.getContentPane().remove(panelThatWillChange3);
+		if ( panelThatWillChange4 != null) chefProjetView1.getContentPane().remove(panelThatWillChange4);
+		if ( panelThatWillChange5 != null) chefProjetView1.getContentPane().remove(panelThatWillChange5);
+		if ( panelThatWillChange6 != null) chefProjetView1.getContentPane().remove(panelThatWillChange6);
+		if ( panelThatWillChange7 != null) chefProjetView1.getContentPane().remove(panelThatWillChange7);
+		chefProjetView1.revalidate();
+		chefProjetView1.repaint();
 		}
 
 	

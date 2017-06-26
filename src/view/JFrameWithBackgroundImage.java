@@ -5,7 +5,8 @@ package view;
 	
 	public class JFrameWithBackgroundImage extends JFrame
 	{
-	
+	/*JButton b1;
+	JLabel l1;*/
 		public JFrameWithBackgroundImage(String imageFilename)
 		{
 		setTitle("Suivi des marchés");
@@ -15,12 +16,10 @@ package view;
 		setVisible(true);
 
 		getContentPane().setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon("/home/ouissal/workspace/ProjetSuiviDesMarches/img/"+imageFilename)));
-		
+		setContentPane(new JLabel(new ImageIcon(JFrameWithBackgroundImage.class.getResource(imageFilename))));
 		getContentPane().setLayout(new FlowLayout());
 		getContentPane().setLayout(new BorderLayout());
 		setSize(399,399);
-		
 		setSize(400,400);
 		setResizable(false);
 		}

@@ -42,14 +42,14 @@ public class EmployeeView3 {
 	private void initialize() 
 	{
              
-        employeeView3 = new JFrameWithBackgroundImage("blue3.png");
+        employeeView3 = new JFrameWithBackgroundImage("/blue3.png");
         employeeView3.setBounds(100, 100, 600, 400);
         employeeView3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         employeeView3.setLocationRelativeTo(null);
         employeeView3.getContentPane().setLayout(null);
         
 
-		projectInfo= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		projectInfo= new ImagePanel("/green3.jpg");
 		projectInfo.setBounds(0, 0, 592, 367);
 		employeeView3.getContentPane().add(projectInfo);
 		projectInfo.setLayout(null);
@@ -234,7 +234,7 @@ public class EmployeeView3 {
 	
 	public void createAndDisplayValidatingTasksPanel()
 	{
-		panelForm5= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelForm5= new ImagePanel("/green3.jpg");
 		panelForm5.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm5);
 		panelForm5.setLayout(null);
@@ -266,7 +266,7 @@ public class EmployeeView3 {
 	}
 	public void createAndDisplaySignalerTasksPanel()
 	{
-		panelForm6= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelForm6= new ImagePanel("/green3.jpg");
 		panelForm6.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm6);
 		panelForm6.setLayout(null);
@@ -301,7 +301,7 @@ public class EmployeeView3 {
 	
 	public void approveTasksPanel()
 	{
-		panelForm7= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelForm7= new ImagePanel("/green3.jpg");
 		panelForm7.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm7);
 		panelForm7.setLayout(null);
@@ -333,7 +333,7 @@ public class EmployeeView3 {
 	
 	public void commentTasksPannel()
 	{
-		panelForm8= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		panelForm8= new ImagePanel("/green3.jpg");
 		panelForm8.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm8);
 		panelForm8.setLayout(null);
@@ -396,7 +396,7 @@ public class EmployeeView3 {
 	public void tasksPanel()
 	{
 		
-		  panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+		  panelForm4= new ImagePanel("/green3.jpg");
 			panelForm4.setBounds(0, 57, 592, 310);
 			employeeView3.getContentPane().add(panelForm4);
 			panelForm4.setLayout(null);

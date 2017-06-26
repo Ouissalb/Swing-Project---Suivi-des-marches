@@ -27,7 +27,8 @@ public class ImagePanel extends JPanel
 	super.paintComponent(g);
 	BufferedImage image = null;
 	try {
-	image = ImageIO.read(new File(inputImage));
+		
+	image = ImageIO.read(ImagePanel.class.getResourceAsStream(inputImage));
 	} catch (IOException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
