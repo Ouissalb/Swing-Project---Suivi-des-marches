@@ -1,23 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
+/**
+ *
+ * @author boughriba
+ */
 import javax.swing.JOptionPane;
 
 public class MessageBoxes 
 {
-		public static void usernameDoesntExist()
-		{
-				JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
-				"Le nom d'utilisateur saisi n'existe pas !",
-			    "Inane error",
-			    JOptionPane.ERROR_MESSAGE);
-		}
-		public static void incorrectPassword()
-		{
+	public static void usernameDoesntExist()
+	{
 			JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
-			"Mot de passe incorrecte !",
+			"Le nom d'utilisateur saisi n'existe pas !",
 		    "Inane error",
 		    JOptionPane.ERROR_MESSAGE);
-		}
+	}
+	public static void incorrectPassword()
+	{
+		JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
+		"Mot de passe incorrecte !",
+	    "Inane error",
+	    JOptionPane.ERROR_MESSAGE);
+	}
         public static void incorrectDuree()
         {
             JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
@@ -43,20 +52,33 @@ public class MessageBoxes
         {
             JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
 		"Entrez une description (contenu) de la tâche",
-	    "Erreur",
+	    "Inane error",
             JOptionPane.ERROR_MESSAGE);
         }
         public static void incorrectDureeTache()
         {
             JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(),
 		"Entrez une durée raisonnable pour la tâche",
-	    "Erreur",
+	    "Inane error",
             JOptionPane.ERROR_MESSAGE);
         }
-        public void incorrectDate()
+        public static void incorrectDate()
         {
             JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(), "Entrez un date inférieure à la date finale du projet",
-                    "Erreur",
+                    "Inane error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        public void noMoreTasks()
+        {
+            JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(), "Il n y a plus de taches",
+                    "Inane error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        public static void notification()
+        {
+            JOptionPane.showMessageDialog(LoginWindow.getJFrameForLoginWindow(), "une tache a un dead-line dans 15 jours!",
+                    "Inane error",
                     JOptionPane.ERROR_MESSAGE);
         }
         public static void vousAvezUneNotification()
@@ -66,5 +88,4 @@ public class MessageBoxes
             		// This should be a variable instead, that will show whether or not he has new notifications
 		"Vous avez de nouvelles notifications");
         }
-        
 }

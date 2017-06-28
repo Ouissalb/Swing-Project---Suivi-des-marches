@@ -149,6 +149,8 @@ public class EmployeeView2Formulaire {
                 JSpinner spinnerBudget = new JSpinner(mo);
 		spinnerBudget.setBounds(277, 180, 263, 27);
 		panelForm1.add(spinnerBudget);
+		
+		
                 
 		btnSuivant.addActionListener(new ActionListener() 
 		{
@@ -362,6 +364,7 @@ public class EmployeeView2Formulaire {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
+				System.out.println("Unsure button");
                             try{
                                 if(!ajouterTacheContenu.getText().isEmpty())
                                     tcc.setContenu(ajouterTacheContenu.getText());      
@@ -497,8 +500,6 @@ public class EmployeeView2Formulaire {
                             employeeView2Formulaire.dispose();
                             EmployeeView1 a = new EmployeeView1();
                             a.employeeView1.setVisible(true);
-							/*EmployeeView1.employeeView1.setVisible(true);
-							employeeView2Formulaire.setVisible(false);*/
 			}
 		});
 		
@@ -512,6 +513,4 @@ public class EmployeeView2Formulaire {
 		});
 	}
 	
-	
-
 }

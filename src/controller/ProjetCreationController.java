@@ -1,8 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import java.util.Date;
 import model.*;
 import model.Projet;
+
+/**
+ *
+ * @author boughriba
+ */
 
 public class ProjetCreationController {
     
@@ -12,6 +22,11 @@ public class ProjetCreationController {
     public ProjetCreationController()
     {
         projet = new Projet();
+    }
+    
+    public ProjetCreationController(Projet projet)
+    {
+        this.projet = projet;
     }
     
     public void setObjectif(String o)
@@ -59,7 +74,20 @@ public class ProjetCreationController {
                 {
                     break;
                 }
-        }        
+            
+            for(int i =0; i < this.projet.materiels.size(); i++)
+                if(!dbQuerie.setMateriel(this.projet.materiels.get(i)))
+                {
+                    break;
+                }
+            
+            for(int i = 0 ; i < this.projet.licences.size(); i++)
+                if(!dbQuerie.setLicence(this.projet.licences.get(i)))
+                {
+                    break;
+                }
+        }
+    
         System.out.println("le compte est bon");
     }
     

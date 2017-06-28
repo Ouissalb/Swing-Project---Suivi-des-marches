@@ -1,5 +1,6 @@
 package view;
-
+/*
+import controller.DataProc;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,12 +15,18 @@ import javax.swing.JTextArea;
 
 import controller.ProjetCreationController;
 import controller.TacheCreationController;
+import javax.swing.DefaultListModel;
 import model.DatabaseQueries;
+import view.EmployeeView1;
+import view.ImagePanel;
+import view.JFrameWithBackgroundImage;
 
 public class EmployeeView3 {
 
 	public static JFrameWithBackgroundImage employeeView3;
 
+        public DataProc dp = new DataProc();
+        
 	public EmployeeView3() {
 		initialize();
 	}
@@ -40,86 +47,77 @@ public class EmployeeView3 {
 	private String commentValue;
 	
 	private void initialize() 
-	{
-             
-        employeeView3 = new JFrameWithBackgroundImage("/blue3.png");
-        employeeView3.setBounds(100, 100, 600, 400);
-        employeeView3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        employeeView3.setLocationRelativeTo(null);
-        employeeView3.getContentPane().setLayout(null);
+	{             
+            System.out.println(EmployeeView1.index);
+            employeeView3 = new JFrameWithBackgroundImage("blue3.png");
+            employeeView3.setBounds(100, 100, 600, 400);
+            employeeView3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            employeeView3.setLocationRelativeTo(null);
+            employeeView3.getContentPane().setLayout(null);
         
 
-		projectInfo= new ImagePanel("/green3.jpg");
-		projectInfo.setBounds(0, 0, 592, 367);
-		employeeView3.getContentPane().add(projectInfo);
-		projectInfo.setLayout(null);
+	projectInfo= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
+	projectInfo.setBounds(0, 0, 592, 367);
+	employeeView3.getContentPane().add(projectInfo);
+	projectInfo.setLayout(null);
 		
-		JPanel panelThatWillChange = new JPanel();
-		panelThatWillChange.setBounds(33, 48, 356, 222);
-		projectInfo.add(panelThatWillChange);
+	JPanel panelThatWillChange = new JPanel();
+	panelThatWillChange.setBounds(33, 48, 356, 222);
+	projectInfo.add(panelThatWillChange);
 		
-		JButton btnObjectif = new JButton("Objectif");
-		btnObjectif.setBounds(427, 48, 121, 27);
-		projectInfo.add(btnObjectif);
+	JButton btnObjectif = new JButton("Objectif");
+	btnObjectif.setBounds(427, 48, 121, 27);
+	projectInfo.add(btnObjectif);
 		
+	btnObjectif.addActionListener(new ActionListener()
+	{
+            public void actionPerformed(ActionEvent arg0) 
+            {
+		showObjectives();
+		panelThatWillChange.setVisible(false);
+            }
+	});
+	
+	JButton boutonSuivant = new JButton("Suivant >");
+	boutonSuivant.setBounds(427, 312, 121, 27);
+	projectInfo.add(boutonSuivant);
+	
 		
-		
-		btnObjectif.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				
-				showObjectives();
-				panelThatWillChange.setVisible(false);
-				
-			}
-		});
-		
-		JButton boutonSuivant = new JButton("Suivant >");
-		boutonSuivant.setBounds(427, 312, 121, 27);
-		projectInfo.add(boutonSuivant);
-		
-		
-		boutonSuivant.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				projectInfo.setVisible(false);
-				tasksPanel();
-			}
-		});
+	boutonSuivant.addActionListener(new ActionListener() 
+	{
+            public void actionPerformed(ActionEvent arg0) 
+            {
+		projectInfo.setVisible(false);
+            	tasksPanel();
+            }
+	});
 		
 			
-		JButton btnTaches = new JButton("Taches en cours");
-		btnTaches.setBounds(427, 87, 121, 27);
-		projectInfo.add(btnTaches);
+	JButton btnTaches = new JButton("Taches en cours");
+	btnTaches.setBounds(427, 87, 121, 27);
+	projectInfo.add(btnTaches);
 		
-		btnTaches.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				
-				panelThatWillChange.setVisible(false);
-				addTasksEnCours();	
-				
-			}
-		});
+	btnTaches.addActionListener(new ActionListener() 
+	{
+            public void actionPerformed(ActionEvent arg0) 
+            {
+		panelThatWillChange.setVisible(false);
+		addTasksEnCours();	
+            }
+	});
 		
-		JButton btnTachesValides = new JButton("Taches validées");
-		btnTachesValides.setBounds(427, 126, 121, 27);
-		projectInfo.add(btnTachesValides);
+	JButton btnTachesValides = new JButton("Taches validées");
+	btnTachesValides.setBounds(427, 126, 121, 27);
+	projectInfo.add(btnTachesValides);
 		
-		btnTachesValides.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				panelThatWillChange.setVisible(false);
-				addTasksValidees();		
-			
-				
-			}
-		});
-		
+	btnTachesValides.addActionListener(new ActionListener() 
+	{
+            public void actionPerformed(ActionEvent arg0) 
+            {
+		panelThatWillChange.setVisible(false);
+		addTasksValidees();		
+            }
+	});		
 		
 		JButton btnMatriel = new JButton("Matériel");
 		btnMatriel.setBounds(427, 165, 121, 27);
@@ -180,9 +178,13 @@ public class EmployeeView3 {
 		textArea.setWrapStyleWord(true);
 		panelThatWillChange2.add(textArea);
 		panelThatWillChange2.setVisible(true);
-		textArea.setText("The project's objectif will be written here !");
+                
+                String[] objectifs = dp.getObjectif(EmployeeView1.index);
+                System.out.println(objectifs[1]);
+                for(int i = 0; i < objectifs.length; i++)
+                    textArea.append(objectifs[i]);
+                
 	}
-	
 	
 	public void showMateriel()
 	{
@@ -196,7 +198,12 @@ public class EmployeeView3 {
 		textArea.setWrapStyleWord(true);
 		panelThatWillChange3.add(textArea);
 		panelThatWillChange3.setVisible(true);
-		textArea.setText("The project's materials will be written here !");
+                
+                String[] materiels = dp.getMateriels(EmployeeView1.index);
+                
+                for(int i = 0; i < materiels.length; i++)
+                    if(materiels[i] != null)
+                    textArea.append("materiel "+i+" : "+materiels[i]);
 	}
 	
 	public void showLicenses()
@@ -211,7 +218,12 @@ public class EmployeeView3 {
 		textArea.setWrapStyleWord(true);
 		panelThatWillChange4.add(textArea);
 		panelThatWillChange4.setVisible(true);
-		textArea.setText("The project's licenses will be written here !");
+		
+                String[] licences = dp.getLicences(EmployeeView1.index);
+                
+                for(int i = 0; i < licences.length; i++)
+                    if(licences[i] != null)
+                        textArea.append("licence "+i+" : "+licences[i]+"\n");
 	}
 	
 	public void showDateAntState()
@@ -226,15 +238,15 @@ public class EmployeeView3 {
 		textArea.setWrapStyleWord(true);
 		panelThatWillChange5.add(textArea);
 		panelThatWillChange5.setVisible(true);
-		textArea.setText("The project's limit date, duration, budget and state will be shown here !");
+                
+                //String date_etat = dp.getDateBudget(EmployeeView1.index);
+                
+                //textArea.setText(date_etat);
 	}
-
-        
-  
 	
 	public void createAndDisplayValidatingTasksPanel()
 	{
-		panelForm5= new ImagePanel("/green3.jpg");
+		panelForm5= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 		panelForm5.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm5);
 		panelForm5.setLayout(null);
@@ -264,16 +276,17 @@ public class EmployeeView3 {
 			}
 		});
 	}
+        
 	public void createAndDisplaySignalerTasksPanel()
 	{
-		panelForm6= new ImagePanel("/green3.jpg");
+		panelForm6= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 		panelForm6.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm6);
 		panelForm6.setLayout(null);
 		
 		// SQL syntax has some error
 		JList listForTasks2 = new JList(/*DatabaseQueri
-		es.populatingListWithTasks(EmployeeView1.currentProjectSelectedByEmployee)*/);
+		es.populatingListWithTasks(EmployeeView1.currentProjectSelectedByEmployee)*//*);
 		listForTasks2.setBounds(79, 41, 441, 158);
 		listForTasks2.setSelectionBackground(Color.red);
 		panelForm6.add(listForTasks2);
@@ -301,7 +314,7 @@ public class EmployeeView3 {
 	
 	public void approveTasksPanel()
 	{
-		panelForm7= new ImagePanel("/green3.jpg");
+		panelForm7= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 		panelForm7.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm7);
 		panelForm7.setLayout(null);
@@ -333,7 +346,7 @@ public class EmployeeView3 {
 	
 	public void commentTasksPannel()
 	{
-		panelForm8= new ImagePanel("/green3.jpg");
+		panelForm8= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 		panelForm8.setBounds(0, 57, 592, 310);
 		employeeView3.getContentPane().add(panelForm8);
 		panelForm8.setLayout(null);
@@ -371,8 +384,15 @@ public class EmployeeView3 {
 		panelThatWillChange6 = new JPanel();
 		panelThatWillChange6.setBounds(33, 48, 356, 222);
 		panelThatWillChange6.setLayout(null);
-		projectInfo.add(panelThatWillChange6);
-		JList listTaches = new JList();
+		projectInfo.add(panelThatWillChange6);		
+                
+                String a[] = dp.getTasks(EmployeeView1.index);
+                DefaultListModel listModel = new DefaultListModel();
+                for(int i = 0 ; i < a.length ; i++)
+                    if(a[i] != null)
+                        listModel.addElement("tache : " + a[i]);
+                
+                JList listTaches = new JList(listModel);
 		listTaches.setBounds(0, 0, 356, 222);
 		panelThatWillChange6.add(listTaches);
 		panelThatWillChange6.setVisible(true);
@@ -384,19 +404,28 @@ public class EmployeeView3 {
 		panelThatWillChange7 = new JPanel();
 		panelThatWillChange7.setBounds(33, 48, 356, 222);
 		panelThatWillChange7.setLayout(null);
-		projectInfo.add(panelThatWillChange7);
-		JList listTaches = new JList();
+		projectInfo.add(panelThatWillChange7);		
+                DefaultListModel listModel = new DefaultListModel();
+                String a[] = dp.getTasksValidee(EmployeeView1.index);
+                
+                System.out.println(a);
+                    
+                if (a == null)
+                    listModel.addElement("Il n y a pas encore de taches validées");
+                else
+                    for(int i = 0 ; i < a.length ; i++)
+                        if(a[i] != null)
+                            listModel.addElement("tache : " + a[i]);
+                
+                JList<String> listTaches = new JList(listModel);                
 		listTaches.setBounds(0, 0, 356, 222);
-		panelThatWillChange7.add(listTaches);
-		panelThatWillChange7.setVisible(true);
+		panelThatWillChange6.add(listTaches);
+		panelThatWillChange6.setVisible(true);
 	}
-	
-	
 	
 	public void tasksPanel()
 	{
-		
-		  panelForm4= new ImagePanel("/green3.jpg");
+		  panelForm4= new ImagePanel("/home/ouissal/workspace/ProjetSuiviDesMarches/img/green3.jpg");
 			panelForm4.setBounds(0, 57, 592, 310);
 			employeeView3.getContentPane().add(panelForm4);
 			panelForm4.setLayout(null);
@@ -472,4 +501,4 @@ public class EmployeeView3 {
 		}
 	
 	
-}
+}*/

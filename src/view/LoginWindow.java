@@ -1,11 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
+/**
+ *
+ * @author boughriba
+ */
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.awt.event.ActionEvent;
@@ -18,8 +29,7 @@ import controller.*;
 
 public class LoginWindow {
 
-        
-	public static String user_logged_in = "";
+        public static String user_logged_in = "";
         
 	private static JFrame frameForLoginWindow;
 	private JTextField usernameField;
@@ -70,6 +80,31 @@ public class LoginWindow {
 		
             frameWithBackgroundImage.getContentPane().add(comboBox);
 		
+            
+            // 
+            comboBox.addItemListener( new ItemListener () {
+
+            	@Override
+            	public void itemStateChanged(ItemEvent arg0) {
+            	// TODO Auto-generated method stub
+            	int currentItem = comboBox.getSelectedIndex();
+            	switch (currentItem){
+            	case 0:
+            	usernameField.setText("First username");
+            	passwordField.setText("kasdjfkasdjfakdsjf");
+            	break;
+            	case 1:
+            	usernameField.setText("Twilliams");
+            	passwordField.setText("Twilliams1");
+            	break;
+            	case 2:
+            	usernameField.setText("Mnicolas");
+            	passwordField.setText("Mnicolas1");
+            	break;
+            	}
+
+            	}
+            	});
 		
             try {
             	System.out.println(hashPassword(password));
